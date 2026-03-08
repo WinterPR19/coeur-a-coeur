@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cœur à Cœur 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Page d'accueil */
+        .welcome-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Formulaire création */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Questions */
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .question-type {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .options-container {
+            margin-top: 10px;
+        }
+
+        .option-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .option-input input {
+            flex: 1;
+        }
+
+        .add-option {
+            background: #2ed573;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        /* Lien généré */
+        .link-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Réponses */
+        .response-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .response-date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .answer-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .answer-question {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .answer-text {
+            color: #555;
+        }
+
+        .compatibility-score {
+            text-align: center;
+            font-size: 3em;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        /* Partie répondante */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .emoji-reaction {
+            font-size: 2em;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .emoji-reaction:hover {
+            transform: scale(1.3);
+        }
+
+        .emoji-reaction.selected {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px #667eea);
+        }
+
+        /* Animations cœurs */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 10s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .welcome-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .success-message {
+            background: #2ed573;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="heartsContainer"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>💕 Cœur à Cœur</h1>
+            <p>Découvrez qui se cache derrière le sourire</p>
+        </div>
+
+        <!-- Page d'accueil -->
+        <div id="homePage" class="card">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #667eea;">Bienvenue !</h2>
+            <p style="text-align: center; margin-bottom: 30px; line-height: 1.6;">
+                Créez un questionnaire personnalisé et envoyez-le à cette personne spéciale.<br>
+                Découvrez vos affinités et apprenez à vous connaître différemment.
+            </p>
+            <div class="welcome-buttons">
+                <button class="btn btn-primary" onclick="showCreateForm()">Créer un questionnaire 💌</button>
+                <button class="btn btn-secondary" onclick="showDashboard()">Mes questionnaires 📊</button>
+            </div>
+        </div>
+
+        <!-- Création de questionnaire -->
+        <div id="createPage" class="card hidden">
+            <h2 style="margin-bottom: 30px; color: #667eea;">Nouveau Questionnaire</h2>
+            
+            <div class="form-group">
+                <label>Ton prénom</label>
+                <input type="text" id="creatorName" placeholder="Comment tu t'appelles ?">
+            </div>
+
+            <div class="form-group">
+                <label>Message personnel (optionnel)</label>
+                <textarea id="personalMessage" placeholder="Écris un petit message pour elle..."></textarea>
+            </div>
+
+            <h3 style="margin: 30px 0 20px 0; color: #555;">Tes questions</h3>
+            <div id="questionsList"></div>
+
+            <button class="btn btn-secondary" onclick="addQuestion('text')" style="margin-right: 10px;">+ Question ouverte</button>
+            <button class="btn btn-secondary" onclick="addQuestion('choice')" style="margin-right: 10px;">+ QCM</button>
+            <button class="btn btn-secondary" onclick="addQuestion('scale')">+ Échelle 1-10</button>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button class="btn btn-primary" onclick="generateQuestionnaire()">Générer le lien ✨</button>
+                <button class="btn btn-secondary" onclick="showHome()" style="margin-left: 10px;">Retour</button>
+            </div>
+        </div>
+
+        <!-- Lien généré -->
+        <div id="linkPage" class="card hidden">
+            <div class="success-message">
+                ✅ Questionnaire créé avec succès !
+            </div>
+            <h3 style="margin-bottom: 20px;">Partage ce lien :</h3>
+            <div class="link-box">
+                <span id="generatedLink"></span>
+                <button class="copy-btn" onclick="copyLink()">Copier</button>
+            </div>
+            <p style="margin-top: 20px; color: #666; text-align: center;">
+                Dès qu'elle aura répondu, tu recevras une notification ici !
+            </p>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="showDashboard()">Voir mes questionnaires</button>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboardPage" class="card hidden">
+            <h2 style="margin-bottom: 30px; color: #667eea;">Mes Questionnaires</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalQuizzes">0</div>
+                    <div class="stat-label">Questionnaires créés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalResponses">0</div>
+                    <div class="stat-label">Réponses reçues</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgCompatibility">-%</div>
+                    <div class="stat-label">Compatibilité moyenne</div>
+                </div>
+            </div>
+
+            <div id="responsesList"></div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="showCreateForm()">Nouveau questionnaire</button>
+                <button class="btn btn-secondary" onclick="showHome()" style="margin-left: 10px;">Accueil</button>
+            </div>
+        </div>
+
+        <!-- Page de réponse (pour la fille) -->
+        <div id="answerPage" class="card hidden">
+            <div id="answerHeader"></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div id="answerForm"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="submitAnswers()">Envoyer mes réponses 💝</button>
+            </div>
+        </div>
+
+        <!-- Confirmation réponse -->
+        <div id="confirmationPage" class="card hidden">
+            <div style="text-align: center; padding: 40px;">
+                <div style="font-size: 4em; margin-bottom: 20px;">💌</div>
+                <h2 style="color: #667eea; margin-bottom: 20px;">C'est envoyé !</h2>
+                <p style="font-size: 1.1em; line-height: 1.6; color: #555;">
+                    Merci d'avoir répondu !<br>
+                    Ton crush va être prévenu et pourra découvrir tes réponses.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Données stockées localement
+        let questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let answers = {};
+
+        // Génération des cœurs flottants
+        function createHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['💕', '💖', '💗', '💓', '💝'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                container.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 10000);
+            }, 1000);
+        }
+
+        // Navigation
+        function showHome() {
+            hideAll();
+            document.getElementById('homePage').classList.remove('hidden');
+        }
+
+        function showCreateForm() {
+            hideAll();
+            document.getElementById('createPage').classList.remove('hidden');
+            document.getElementById('questionsList').innerHTML = '';
+            addQuestion('text');
+        }
+
+        function showDashboard() {
+            hideAll();
+            document.getElementById('dashboardPage').classList.remove('hidden');
+            updateDashboard();
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+        }
+
+        // Gestion des questions
+        function addQuestion(type) {
+            const container = document.getElementById('questionsList');
+            const id = Date.now();
+            
+            const div = document.createElement('div');
+            div.className = 'question-card';
+            div.id = 'question-' + id;
+            
+            let typeLabel = type === 'text' ? 'Texte libre' : type === 'choice' ? 'QCM' : 'Échelle 1-10';
+            
+            div.innerHTML = `
+                <div class="question-header">
+                    <span class="question-type">${typeLabel}</span>
+                    <button class="remove-btn" onclick="removeQuestion('${id}')">Supprimer</button>
+                </div>
+                <input type="text" placeholder="Ta question..." class="question-text" style="width: 100%; margin-bottom: 10px;">
+                ${type === 'choice' ? `
+                    <div class="options-container" id="options-${id}">
+                        <div class="option-input">
+                            <input type="text" placeholder="Option 1" class="option-value">
+                        </div>
+                        <div class="option-input">
+                            <input type="text" placeholder="Option 2" class="option-value">
+                        </div>
+                    </div>
+                    <button class="add-option" onclick="addOption('${id}')">+ Ajouter une option</button>
+                ` : ''}
+                <input type="hidden" class="question-type" value="${type}">
+            `;
+            
+            container.appendChild(div);
+        }
+
+        function removeQuestion(id) {
+            document.getElementById('question-' + id).remove();
+        }
+
+        function addOption(questionId) {
+            const container = document.getElementById('options-' + questionId);
+            const div = document.createElement('div');
+            div.className = 'option-input';
+            div.innerHTML = `
+                <input type="text" placeholder="Option ${container.children.length + 1}" class="option-value">
+                <button onclick="this.parentElement.remove()" style="background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">×</button>
+            `;
+            container.appendChild(div);
+        }
+
+        // Génération du questionnaire
+        function generateQuestionnaire() {
+            const creatorName = document.getElementById('creatorName').value;
+            const message = document.getElementById('personalMessage').value;
+            
+            if (!creatorName) {
+                alert('Dis-moi au moins comment tu t\'appelles ! 😊');
+                return;
+            }
+
+            const questions = [];
+            document.querySelectorAll('.question-card').forEach(card => {
+                const text = card.querySelector('.question-text').value;
+                const type = card.querySelector('.question-type').value;
+                
+                if (!text) return;
+                
+                const question = { text, type };
+                
+                if (type === 'choice') {
+                    question.options = [];
+                    card.querySelectorAll('.option-value').forEach(input => {
+                        if (input.value) question.options.push(input.value);
+                    });
+                }
+                
+                questions.push(question);
+            });
+
+            if (questions.length === 0) {
+                alert('Ajoute au moins une question !');
+                return;
+            }
+
+            const quiz = {
+                id: Date.now().toString(36),
+                creator: creatorName,
+                message: message,
+                questions: questions,
+                responses: [],
+                createdAt: new Date().toISOString()
+            };
+
+            questionnaires.push(quiz);
+            localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
+
+            // Générer le lien
+            const link = window.location.origin + window.location.pathname + '?quiz=' + quiz.id;
+            document.getElementById('generatedLink').textContent = link;
+            
+            hideAll();
+            document.getElementById('linkPage').classList.remove('hidden');
+        }
+
+        function copyLink() {
+            const link = document.getElementById('generatedLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Lien copié ! Colle-le où tu veux 💌');
+            });
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            document.getElementById('totalQuizzes').textContent = questionnaires.length;
+            
+            let totalResponses = 0;
+            let totalCompatibility = 0;
+            
+            const container = document.getElementById('responsesList');
+            container.innerHTML = '';
+            
+            questionnaires.slice().reverse().forEach(quiz => {
+                totalResponses += quiz.responses.length;
+                
+                const div = document.createElement('div');
+                div.style.cssText = 'background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 15px;';
+                
+                let responsesHtml = '';
+                if (quiz.responses.length === 0) {
+                    responsesHtml = '<p style="color: #999; margin-top: 10px;">Pas encore de réponses... 🤔</p>';
+                } else {
+                    quiz.responses.forEach((resp, idx) => {
+                        totalCompatibility += resp.compatibility || 0;
+                        responsesHtml += `
+                            <div class="response-card" style="margin-top: 15px;">
+                                <div class="response-header">
+                                    <strong>Réponse #${idx + 1}</strong>
+                                    <span class="response-date">${new Date(resp.date).toLocaleDateString()}</span>
+                                </div>
+                                <div class="compatibility-score">${resp.compatibility}% 💕</div>
+                                ${resp.answers.map((a, i) => `
+                                    <div class="answer-item">
+                                        <div class="answer-question">${quiz.questions[i].text}</div>
+                                        <div class="answer-text">${a}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    });
+                }
+                
+                div.innerHTML = `
+                    <h3 style="color: #667eea; margin-bottom: 10px;">Questionnaire pour ${quiz.creator}</h3>
+                    <p style="color: #666; font-size: 0.9em;">Créé le ${new Date(quiz.createdAt).toLocaleDateString()} • ${quiz.responses.length} réponse(s)</p>
+                    ${responsesHtml}
+                `;
+                
+                container.appendChild(div);
+            });
+            
+            document.getElementById('totalResponses').textContent = totalResponses;
+            document.getElementById('avgCompatibility').textContent = 
+                totalResponses > 0 ? Math.round(totalCompatibility / totalResponses) + '%' : '-%';
+        }
+
+        // Page de réponse
+        function loadAnswerPage(quizId) {
+            currentQuiz = questionnaires.find(q => q.id === quizId);
+            if (!currentQuiz) return false;
+            
+            hideAll();
+            document.getElementById('answerPage').classList.remove('hidden');
+            
+            const header = document.getElementById('answerHeader');
+            header.innerHTML = `
+                <h2 style="color: #667eea; margin-bottom: 10px;">💌 Questionnaire de ${currentQuiz.creator}</h2>
+                ${currentQuiz.message ? `<p style="color: #666; margin-bottom: 20px; font-style: italic;">"${currentQuiz.message}"</p>` : ''}
+            `;
+            
+            currentQuestionIndex = 0;
+            answers = {};
+            showCurrentQuestion();
+            
+            return true;
+        }
+
+        function showCurrentQuestion() {
+            const container = document.getElementById('answerForm');
+            const question = currentQuiz.questions[currentQuestionIndex];
+            
+            const progress = ((currentQuestionIndex) / currentQuiz.questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            let inputHtml = '';
+            
+            if (question.type === 'text') {
+                inputHtml = `<textarea id="answerInput" placeholder="Ton message..." style="width: 100%; min-height: 150px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1.1em;"></textarea>`;
+            } else if (question.type === 'choice') {
+                inputHtml = `<div style="display: flex; flex-direction: column; gap: 10px;">`;
+                question.options.forEach((opt, idx) => {
+                    inputHtml += `
+                        <label style="padding: 15px; background: #f0f0f0; border-radius: 10px; cursor: pointer; transition: all 0.3s;">
+                            <input type="radio" name="choice" value="${opt}" style="margin-right: 10px;">
+                            ${opt}
+                        </label>
+                    `;
+                });
+                inputHtml += `</div>`;
+            } else if (question.type === 'scale') {
+                inputHtml = `<div style="text-align: center; padding: 20px;">`;
+                for (let i = 1; i <= 10; i++) {
+                    inputHtml += `<span class="emoji-reaction" onclick="selectScale(${i})" data-value="${i}">${i}</span>`;
+                }
+                inputHtml += `<div id="scaleLabel" style="margin-top: 15px; color: #667eea; font-weight: bold;"></div></div>`;
+            }
+            
+            container.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <span style="color: #999;">Question ${currentQuestionIndex + 1}/${currentQuiz.questions.length}</span>
+                    <h3 style="margin-top: 10px; color: #333; font-size: 1.3em;">${question.text}</h3>
+                </div>
+                ${inputHtml}
+            `;
+        }
+
+        function selectScale(value) {
+            document.querySelectorAll('.emoji-reaction').forEach(el => el.classList.remove('selected'));
+            document.querySelector(`.emoji-reaction[data-value="${value}"]`).classList.add('selected');
+            
+            const labels = ['Pas du tout', 'Un peu', 'Moyennement', 'Beaucoup', 'Passionnément'];
+            const label = labels[Math.floor((value - 1) / 2)] || 'Beaucoup';
+            document.getElementById('scaleLabel').textContent = label;
+        }
+
+        function submitAnswers() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            let answer = '';
+            
+            if (question.type === 'text') {
+                answer = document.getElementById('answerInput').value;
+            } else if (question.type === 'choice') {
+                const selected = document.querySelector('input[name="choice"]:checked');
+                if (selected) answer = selected.value;
+            } else if (question.type === 'scale') {
+                const selected = document.querySelector('.emoji-reaction.selected');
+                if (selected) answer = selected.dataset.value + '/10';
+            }
+            
+            if (!answer && question.type !== 'text') {
+                alert('Réponds à la question pour continuer 😉');
+                return;
+            }
+            
+            answers[currentQuestionIndex] = answer;
+            
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++;
+                showCurrentQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            // Calculer une "compatibilité" aléatoire mais réaliste (60-95%)
+            const compatibility = Math.floor(Math.random() * 35) + 60;
+            
+            const response = {
+                date: new Date().toISOString(),
+                answers: Object.values(answers),
+                compatibility: compatibility
+            };
+            
+            currentQuiz.responses.push(response);
+            localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
+            
+            hideAll();
+            document.getElementById('confirmationPage').classList.remove('hidden');
+        }
+
+        // Initialisation
+        window.onload = function() {
+            createHearts();
+            
+            // Vérifier si on est sur un lien de réponse
+            const params = new URLSearchParams(window.location.search);
+            const quizId = params.get('quiz');
+            
+            if (quizId) {
+                if (!loadAnswerPage(quizId)) {
+                    alert('Ce questionnaire n\'existe pas ou a été supprimé 😢');
+                    showHome();
+                }
+            }
+        };
+    </script>
+</body>
+</html>
