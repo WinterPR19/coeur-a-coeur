@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cœur à Cœur 💕</title>
+    <title>Cœur à Cœur 💕 - Partage tes sentiments</title>
     <style>
         * {
             margin: 0;
@@ -16,839 +16,1297 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            padding: 40px 0;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 20px 0;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideUp 0.6s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Page d'accueil */
-        .welcome-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 15px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Formulaire création */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        input:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Questions */
-        .question-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #667eea;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .question-type {
-            background: #667eea;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8em;
-        }
-
-        .remove-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 5px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-
-        .options-container {
-            margin-top: 10px;
-        }
-
-        .option-input {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-        .option-input input {
-            flex: 1;
-        }
-
-        .add-option {
-            background: #2ed573;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-
-        /* Lien généré */
-        .link-box {
-            background: #f0f0f0;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            word-break: break-all;
-            font-family: monospace;
-            position: relative;
-        }
-
-        .copy-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-
-        /* Réponses */
-        .response-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .response-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #667eea;
-        }
-
-        .response-date {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .answer-item {
-            margin: 15px 0;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-        }
-
-        .answer-question {
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        .answer-text {
-            color: #555;
-        }
-
-        .compatibility-score {
-            text-align: center;
-            font-size: 3em;
-            color: #667eea;
-            margin: 20px 0;
-        }
-
-        /* Partie répondante */
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
-        }
-
-        .emoji-reaction {
-            font-size: 2em;
-            margin: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: inline-block;
-        }
-
-        .emoji-reaction:hover {
-            transform: scale(1.3);
-        }
-
-        .emoji-reaction.selected {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 10px #667eea);
-        }
-
-        /* Animations cœurs */
-        .hearts {
+        .hearts-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 0;
             overflow: hidden;
         }
 
-        .heart {
+        .heart-float {
             position: absolute;
             font-size: 20px;
-            animation: float 10s infinite;
             opacity: 0.3;
+            animation: float 15s infinite linear;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(720deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.4; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden { display: none !important; }
+
+        /* Header */
+        .app-header {
+            text-align: center;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .app-header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            animation: heartbeat 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .app-header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Question Builder */
+        .question-item {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            position: relative;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-type-badge {
+            background: #667eea;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .btn-delete {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #ff3344;
+            transform: scale(1.05);
+        }
+
+        .options-list {
+            margin-top: 12px;
+        }
+
+        .option-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .option-row input {
+            flex: 1;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9em;
+            border-radius: 20px;
+        }
+
+        /* Link Display */
+        .link-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 25px 0;
+            text-align: center;
+            border: 2px dashed #667eea;
+        }
+
+        .link-display {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #667eea;
+            word-break: break-all;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-copy {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        .btn-copy.copied {
+            background: #2ecc71;
+        }
+
+        /* Answer Page */
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .question-display {
+            margin: 30px 0;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.4em;
+            color: #333;
+            margin: 15px 0 25px;
+            line-height: 1.4;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            font-size: 1.1em;
+            min-height: 150px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .choice-option {
+            padding: 18px 24px;
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .choice-option:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .choice-option.selected {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .choice-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .choice-option.selected .choice-radio {
+            border-color: #667eea;
+            background: #667eea;
+        }
+
+        .choice-option.selected .choice-radio::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+        }
+
+        .scale-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .scale-btn {
+            flex: 1;
+            min-width: 50px;
+            height: 60px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scale-btn:hover {
+            border-color: #667eea;
+            transform: scale(1.1);
+        }
+
+        .scale-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: scale(1.15);
+        }
+
+        /* Results */
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .compatibility-score {
+            font-size: 5em;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .compatibility-label {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        .answers-review {
+            margin-top: 30px;
+        }
+
+        .answer-review-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .review-question {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .review-answer {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        /* Dashboard */
+        .quiz-list {
+            margin-top: 30px;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .quiz-title {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .quiz-date {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .quiz-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+        }
+
+        .stat-icon {
+            font-size: 1.2em;
+        }
+
+        .responses-preview {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .response-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+        }
+
+        /* Success States */
+        .success-animation {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .success-icon {
+            font-size: 6em;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.5;
         }
 
         /* Responsive */
         @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .welcome-buttons {
-                flex-direction: column;
-            }
+            .app-header h1 { font-size: 2.5em; }
+            .glass-card { padding: 25px; }
+            .compatibility-score { font-size: 3.5em; }
+            .scale-btn { min-width: 40px; height: 50px; font-size: 1.1em; }
         }
 
-        .success-message {
-            background: #2ed573;
-            color: white;
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #c33;
+        }
+
+        .info-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
             padding: 20px;
             border-radius: 10px;
-            text-align: center;
             margin: 20px 0;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .stat-label {
-            color: #666;
-            margin-top: 5px;
+            color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="hearts" id="heartsContainer"></div>
+    <div class="hearts-bg" id="heartsBg"></div>
 
     <div class="container">
         <!-- Header -->
-        <div class="header">
+        <div class="app-header">
             <h1>💕 Cœur à Cœur</h1>
-            <p>Découvrez qui se cache derrière le sourire</p>
+            <p>Crée des connexions authentiques</p>
         </div>
 
-        <!-- Page d'accueil -->
-        <div id="homePage" class="card">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #667eea;">Bienvenue !</h2>
-            <p style="text-align: center; margin-bottom: 30px; line-height: 1.6;">
-                Créez un questionnaire personnalisé et envoyez-le à cette personne spéciale.<br>
-                Découvrez vos affinités et apprenez à vous connaître différemment.
-            </p>
-            <div class="welcome-buttons">
-                <button class="btn btn-primary" onclick="showCreateForm()">Créer un questionnaire 💌</button>
-                <button class="btn btn-secondary" onclick="showDashboard()">Mes questionnaires 📊</button>
-            </div>
-        </div>
-
-        <!-- Création de questionnaire -->
-        <div id="createPage" class="card hidden">
-            <h2 style="margin-bottom: 30px; color: #667eea;">Nouveau Questionnaire</h2>
-            
-            <div class="form-group">
-                <label>Ton prénom</label>
-                <input type="text" id="creatorName" placeholder="Comment tu t'appelles ?">
-            </div>
-
-            <div class="form-group">
-                <label>Message personnel (optionnel)</label>
-                <textarea id="personalMessage" placeholder="Écris un petit message pour elle..."></textarea>
-            </div>
-
-            <h3 style="margin: 30px 0 20px 0; color: #555;">Tes questions</h3>
-            <div id="questionsList"></div>
-
-            <button class="btn btn-secondary" onclick="addQuestion('text')" style="margin-right: 10px;">+ Question ouverte</button>
-            <button class="btn btn-secondary" onclick="addQuestion('choice')" style="margin-right: 10px;">+ QCM</button>
-            <button class="btn btn-secondary" onclick="addQuestion('scale')">+ Échelle 1-10</button>
-
-            <div style="margin-top: 30px; text-align: center;">
-                <button class="btn btn-primary" onclick="generateQuestionnaire()">Générer le lien ✨</button>
-                <button class="btn btn-secondary" onclick="showHome()" style="margin-left: 10px;">Retour</button>
-            </div>
-        </div>
-
-        <!-- Lien généré -->
-        <div id="linkPage" class="card hidden">
-            <div class="success-message">
-                ✅ Questionnaire créé avec succès !
-            </div>
-            <h3 style="margin-bottom: 20px;">Partage ce lien :</h3>
-            <div class="link-box">
-                <span id="generatedLink"></span>
-                <button class="copy-btn" onclick="copyLink()">Copier</button>
-            </div>
-            <p style="margin-top: 20px; color: #666; text-align: center;">
-                Dès qu'elle aura répondu, tu recevras une notification ici !
-            </p>
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn btn-primary" onclick="showDashboard()">Voir mes questionnaires</button>
-            </div>
-        </div>
-
-        <!-- Dashboard -->
-        <div id="dashboardPage" class="card hidden">
-            <h2 style="margin-bottom: 30px; color: #667eea;">Mes Questionnaires</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalQuizzes">0</div>
-                    <div class="stat-label">Questionnaires créés</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalResponses">0</div>
-                    <div class="stat-label">Réponses reçues</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="avgCompatibility">-%</div>
-                    <div class="stat-label">Compatibilité moyenne</div>
-                </div>
-            </div>
-
-            <div id="responsesList"></div>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn btn-primary" onclick="showCreateForm()">Nouveau questionnaire</button>
-                <button class="btn btn-secondary" onclick="showHome()" style="margin-left: 10px;">Accueil</button>
-            </div>
-        </div>
-
-        <!-- Page de réponse (pour la fille) -->
-        <div id="answerPage" class="card hidden">
-            <div id="answerHeader"></div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
-            </div>
-            <div id="answerForm"></div>
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn btn-primary" onclick="submitAnswers()">Envoyer mes réponses 💝</button>
-            </div>
-        </div>
-
-        <!-- Confirmation réponse -->
-        <div id="confirmationPage" class="card hidden">
-            <div style="text-align: center; padding: 40px;">
-                <div style="font-size: 4em; margin-bottom: 20px;">💌</div>
-                <h2 style="color: #667eea; margin-bottom: 20px;">C'est envoyé !</h2>
-                <p style="font-size: 1.1em; line-height: 1.6; color: #555;">
-                    Merci d'avoir répondu !<br>
-                    Ton crush va être prévenu et pourra découvrir tes réponses.
+        <!-- HOME PAGE -->
+        <div id="page-home" class="glass-card">
+            <div style="text-align: center; padding: 20px 0;">
+                <div style="font-size: 5em; margin-bottom: 20px;">💌</div>
+                <h2 style="color: #333; margin-bottom: 15px; font-size: 1.8em;">Bienvenue !</h2>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 30px; font-size: 1.1em;">
+                    Crée un questionnaire personnalisé et partage-le avec quelqu'un de spécial.<br>
+                    Découvre qui elle est vraiment, une question à la fois.
                 </p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="showPage('create')">
+                        <span>✨</span> Créer un questionnaire
+                    </button>
+                    <button class="btn btn-secondary" onclick="showPage('dashboard')">
+                        <span>📊</span> Mes questionnaires
+                    </button>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 30px;">
+                <strong>💡 Comment ça marche ?</strong><br>
+                1. Crée ton questionnaire avec tes questions perso<br>
+                2. Partage le lien généré par WhatsApp, SMS, etc.<br>
+                3. Reçois ses réponses instantanément ici !<br>
+                <small style="color: #667eea; font-weight: 600;">✓ Fonctionne sur tous les appareils</small>
+            </div>
+        </div>
+
+        <!-- CREATE PAGE -->
+        <div id="page-create" class="glass-card hidden">
+            <h2 style="color: #667eea; margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <span>✨</span> Nouveau Questionnaire
+            </h2>
+
+            <div class="form-group">
+                <label>Ton prénom *</label>
+                <input type="text" id="creator-name" placeholder="Comment tu t'appelles ?" required>
+            </div>
+
+            <div class="form-group">
+                <label>Message personnel (optionnel mais recommandé 💕)</label>
+                <textarea id="creator-message" placeholder="Ex: 'Salut ! J'aimerais apprendre à te connaître mieux... Voici quelques questions pour briser la glace ! 😊'"></textarea>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: #555;">Tes questions</h3>
+            <div id="questions-container"></div>
+
+            <div style="display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+                <button class="btn btn-secondary btn-small" onclick="addQuestion('text')">
+                    + Question ouverte
+                </button>
+                <button class="btn btn-secondary btn-small" onclick="addQuestion('choice')">
+                    + Choix multiple
+                </button>
+                <button class="btn btn-secondary btn-small" onclick="addQuestion('scale')">
+                    + Échelle 1-10
+                </button>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="generateQuiz()" style="flex: 1;">
+                    Générer le lien 💫
+                </button>
+                <button class="btn btn-secondary" onclick="showPage('home')">
+                    Annuler
+                </button>
+            </div>
+        </div>
+
+        <!-- LINK PAGE -->
+        <div id="page-link" class="glass-card hidden">
+            <div class="success-animation">
+                <div class="success-icon">🎉</div>
+                <h2 style="color: #2ecc71; margin-bottom: 10px;">Questionnaire créé !</h2>
+                <p style="color: #666;">Voici ton lien à partager :</p>
+            </div>
+
+            <div class="link-container">
+                <div class="link-display" id="generated-link"></div>
+                <button class="btn-copy" id="copy-btn" onclick="copyLink()">
+                    📋 Copier le lien
+                </button>
+            </div>
+
+            <div class="info-box">
+                <strong>📱 Comment partager ?</strong><br>
+                • WhatsApp : Colle le lien dans la conversation<br>
+                • Instagram : Mets-le dans ta bio ou envoie-le en DM<br>
+                • SMS : Copie-colle directement<br>
+                • Email : Ajoute un petit message personnel !
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="showPage('dashboard')">
+                    Voir mes questionnaires →
+                </button>
+            </div>
+        </div>
+
+        <!-- ANSWER PAGE -->
+        <div id="page-answer" class="glass-card hidden">
+            <div id="answer-intro"></div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="progress-text" id="progress-text">Question 1 sur 3</div>
+            </div>
+
+            <div id="question-container"></div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" style="flex: 1;">
+                    Suivant →
+                </button>
+            </div>
+        </div>
+
+        <!-- CONFIRMATION PAGE -->
+        <div id="page-confirm" class="glass-card hidden">
+            <div class="success-animation">
+                <div class="success-icon">💝</div>
+                <h2 style="color: #667eea; margin-bottom: 15px;">C'est envoyé !</h2>
+                <p style="color: #666; line-height: 1.6; font-size: 1.1em;">
+                    Merci d'avoir répondu !<br>
+                    <span id="confirm-creator"></span> va recevoir tes réponses.<br>
+                    <br>
+                    <em style="font-size: 0.9em;">Bonne chance à vous deux 💕</em>
+                </p>
+            </div>
+        </div>
+
+        <!-- DASHBOARD PAGE -->
+        <div id="page-dashboard" class="glass-card hidden">
+            <h2 style="color: #667eea; margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <span>📊</span> Mes Questionnaires
+            </h2>
+
+            <div id="dashboard-content"></div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="showPage('create')">
+                    + Nouveau questionnaire
+                </button>
+                <button class="btn btn-secondary" onclick="showPage('home')" style="margin-left: 10px;">
+                    ← Accueil
+                </button>
+            </div>
+        </div>
+
+        <!-- QUIZ NOT FOUND -->
+        <div id="page-notfound" class="glass-card hidden">
+            <div class="empty-state">
+                <div class="empty-icon">😢</div>
+                <h2 style="color: #333; margin-bottom: 15px;">Questionnaire introuvable</h2>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 25px;">
+                    Ce lien ne mène nulle part...<br>
+                    Le questionnaire a peut-être été supprimé ou le lien est incorrect.
+                </p>
+                <button class="btn btn-primary" onclick="showPage('home')">
+                    Retour à l'accueil
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Données stockées localement
-        let questionnaires = JSON.parse(localStorage.getItem('questionnaires')) || [];
+        // ==========================================
+        // SOLUTION : Stockage dans l'URL (Base64)
+        // Le questionnaire est ENCODE dans le lien lui-même !
+        // ==========================================
+
         let currentQuiz = null;
         let currentQuestionIndex = 0;
-        let answers = {};
+        let answers = [];
+        let questionIdCounter = 0;
 
-        // Génération des cœurs flottants
-        function createHearts() {
-            const container = document.getElementById('heartsContainer');
-            const hearts = ['💕', '💖', '💗', '💓', '💝'];
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            createFloatingHearts();
+            
+            // Vérifier si on est sur un lien de réponse
+            const hash = window.location.hash;
+            if (hash.startsWith('#quiz=')) {
+                const encoded = hash.substring(6);
+                loadQuizFromURL(encoded);
+            } else {
+                showPage('home');
+            }
+        });
+
+        // Créer les cœurs flottants
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsBg');
+            const emojis = ['💕', '💖', '💗', '💓', '💝', '💘', '💞'];
             
             setInterval(() => {
                 const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.className = 'heart-float';
+                heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
                 heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
                 container.appendChild(heart);
                 
-                setTimeout(() => heart.remove(), 10000);
-            }, 1000);
+                setTimeout(() => heart.remove(), 20000);
+            }, 2000);
         }
 
         // Navigation
-        function showHome() {
-            hideAll();
-            document.getElementById('homePage').classList.remove('hidden');
+        function showPage(pageName) {
+            // Cacher toutes les pages
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.classList.add('hidden');
+            });
+            
+            // Afficher la page demandée
+            const page = document.getElementById(`page-${pageName}`);
+            if (page) {
+                page.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+            
+            // Actions spécifiques
+            if (pageName === 'dashboard') loadDashboard();
+            if (pageName === 'create') initCreatePage();
         }
 
-        function showCreateForm() {
-            hideAll();
-            document.getElementById('createPage').classList.remove('hidden');
-            document.getElementById('questionsList').innerHTML = '';
+        // Page de création
+        function initCreatePage() {
+            document.getElementById('creator-name').value = '';
+            document.getElementById('creator-message').value = '';
+            document.getElementById('questions-container').innerHTML = '';
+            questionIdCounter = 0;
+            
+            // Ajouter une première question par défaut
             addQuestion('text');
         }
 
-        function showDashboard() {
-            hideAll();
-            document.getElementById('dashboardPage').classList.remove('hidden');
-            updateDashboard();
-        }
-
-        function hideAll() {
-            document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
-        }
-
-        // Gestion des questions
         function addQuestion(type) {
-            const container = document.getElementById('questionsList');
-            const id = Date.now();
+            const container = document.getElementById('questions-container');
+            const id = ++questionIdCounter;
             
             const div = document.createElement('div');
-            div.className = 'question-card';
-            div.id = 'question-' + id;
+            div.className = 'question-item';
+            div.dataset.id = id;
+            div.dataset.type = type;
             
-            let typeLabel = type === 'text' ? 'Texte libre' : type === 'choice' ? 'QCM' : 'Échelle 1-10';
+            const typeLabels = {
+                'text': '✍️ Texte libre',
+                'choice': '🔘 Choix multiple',
+                'scale': '📊 Échelle 1-10'
+            };
             
-            div.innerHTML = `
+            let html = `
                 <div class="question-header">
-                    <span class="question-type">${typeLabel}</span>
-                    <button class="remove-btn" onclick="removeQuestion('${id}')">Supprimer</button>
+                    <span class="question-type-badge">${typeLabels[type]}</span>
+                    <button class="btn-delete" onclick="removeQuestion(${id})">🗑️ Supprimer</button>
                 </div>
-                <input type="text" placeholder="Ta question..." class="question-text" style="width: 100%; margin-bottom: 10px;">
-                ${type === 'choice' ? `
-                    <div class="options-container" id="options-${id}">
-                        <div class="option-input">
-                            <input type="text" placeholder="Option 1" class="option-value">
-                        </div>
-                        <div class="option-input">
-                            <input type="text" placeholder="Option 2" class="option-value">
-                        </div>
-                    </div>
-                    <button class="add-option" onclick="addOption('${id}')">+ Ajouter une option</button>
-                ` : ''}
-                <input type="hidden" class="question-type" value="${type}">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <input type="text" class="question-text" placeholder="Ta question..." style="font-size: 1.1em; font-weight: 500;">
+                </div>
             `;
             
+            if (type === 'choice') {
+                html += `
+                    <div class="options-list" id="options-${id}">
+                        <div class="option-row">
+                            <input type="text" class="option-input" placeholder="Option 1">
+                        </div>
+                        <div class="option-row">
+                            <input type="text" class="option-input" placeholder="Option 2">
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary btn-small" onclick="addOption(${id})" style="margin-top: 10px;">
+                        + Ajouter une option
+                    </button>
+                `;
+            }
+            
+            if (type === 'scale') {
+                html += `
+                    <div style="color: #666; font-size: 0.9em; margin-top: 10px;">
+                        💡 Elle pourra choisir une note de 1 à 10
+                    </div>
+                `;
+            }
+            
+            div.innerHTML = html;
             container.appendChild(div);
+            
+            // Animation
+            div.style.animation = 'none';
+            setTimeout(() => div.style.animation = '', 10);
         }
 
         function removeQuestion(id) {
-            document.getElementById('question-' + id).remove();
+            const el = document.querySelector(`.question-item[data-id="${id}"]`);
+            if (el) {
+                el.style.transform = 'translateX(100px)';
+                el.style.opacity = '0';
+                setTimeout(() => el.remove(), 300);
+            }
         }
 
         function addOption(questionId) {
-            const container = document.getElementById('options-' + questionId);
+            const container = document.getElementById(`options-${questionId}`);
             const div = document.createElement('div');
-            div.className = 'option-input';
+            div.className = 'option-row';
             div.innerHTML = `
-                <input type="text" placeholder="Option ${container.children.length + 1}" class="option-value">
-                <button onclick="this.parentElement.remove()" style="background: #ff4757; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">×</button>
+                <input type="text" class="option-input" placeholder="Option ${container.children.length + 1}">
+                <button onclick="this.parentElement.remove()" style="background: none; border: none; font-size: 1.2em; cursor: pointer; color: #ff4757;">×</button>
             `;
             container.appendChild(div);
         }
 
-        // Génération du questionnaire
-        function generateQuestionnaire() {
-            const creatorName = document.getElementById('creatorName').value;
-            const message = document.getElementById('personalMessage').value;
+        // Générer le questionnaire
+        function generateQuiz() {
+            const creator = document.getElementById('creator-name').value.trim();
+            const message = document.getElementById('creator-message').value.trim();
             
-            if (!creatorName) {
+            if (!creator) {
                 alert('Dis-moi au moins comment tu t\'appelles ! 😊');
                 return;
             }
-
+            
             const questions = [];
-            document.querySelectorAll('.question-card').forEach(card => {
-                const text = card.querySelector('.question-text').value;
-                const type = card.querySelector('.question-type').value;
-                
+            document.querySelectorAll('.question-item').forEach(item => {
+                const text = item.querySelector('.question-text').value.trim();
                 if (!text) return;
                 
-                const question = { text, type };
+                const type = item.dataset.type;
+                const question = { type, text };
                 
                 if (type === 'choice') {
                     question.options = [];
-                    card.querySelectorAll('.option-value').forEach(input => {
-                        if (input.value) question.options.push(input.value);
+                    item.querySelectorAll('.option-input').forEach(input => {
+                        if (input.value.trim()) {
+                            question.options.push(input.value.trim());
+                        }
                     });
+                    if (question.options.length < 2) {
+                        alert(`La question "${text}" a besoin d'au moins 2 options !`);
+                        return;
+                    }
                 }
                 
                 questions.push(question);
             });
-
+            
             if (questions.length === 0) {
                 alert('Ajoute au moins une question !');
                 return;
             }
-
+            
+            // Créer l'objet quiz
             const quiz = {
                 id: Date.now().toString(36),
-                creator: creatorName,
-                message: message,
-                questions: questions,
-                responses: [],
+                creator,
+                message,
+                questions,
                 createdAt: new Date().toISOString()
             };
-
-            questionnaires.push(quiz);
-            localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
-
-            // Générer le lien
-            const link = window.location.origin + window.location.pathname + '?quiz=' + quiz.id;
-            document.getElementById('generatedLink').textContent = link;
             
-            hideAll();
-            document.getElementById('linkPage').classList.remove('hidden');
+            // Encoder en Base64 pour l'URL
+            const encoded = btoa(JSON.stringify(quiz));
+            
+            // Générer le lien complet
+            const baseUrl = window.location.origin + window.location.pathname;
+            const fullLink = `${baseUrl}#quiz=${encoded}`;
+            
+            // Afficher
+            document.getElementById('generated-link').textContent = fullLink;
+            showPage('link');
+            
+            // Sauvegarder dans l'historique local
+            saveToHistory(quiz);
         }
 
         function copyLink() {
-            const link = document.getElementById('generatedLink').textContent;
+            const link = document.getElementById('generated-link').textContent;
+            const btn = document.getElementById('copy-btn');
+            
             navigator.clipboard.writeText(link).then(() => {
-                alert('Lien copié ! Colle-le où tu veux 💌');
+                btn.textContent = '✅ Copié !';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copier le lien';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback
+                const input = document.createElement('input');
+                input.value = link;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                btn.textContent = '✅ Copié !';
             });
         }
 
-        // Dashboard
-        function updateDashboard() {
-            document.getElementById('totalQuizzes').textContent = questionnaires.length;
-            
-            let totalResponses = 0;
-            let totalCompatibility = 0;
-            
-            const container = document.getElementById('responsesList');
-            container.innerHTML = '';
-            
-            questionnaires.slice().reverse().forEach(quiz => {
-                totalResponses += quiz.responses.length;
+        // Charger un questionnaire depuis l'URL
+        function loadQuizFromURL(encoded) {
+            try {
+                const json = atob(encoded);
+                currentQuiz = JSON.parse(json);
                 
-                const div = document.createElement('div');
-                div.style.cssText = 'background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 15px;';
-                
-                let responsesHtml = '';
-                if (quiz.responses.length === 0) {
-                    responsesHtml = '<p style="color: #999; margin-top: 10px;">Pas encore de réponses... 🤔</p>';
-                } else {
-                    quiz.responses.forEach((resp, idx) => {
-                        totalCompatibility += resp.compatibility || 0;
-                        responsesHtml += `
-                            <div class="response-card" style="margin-top: 15px;">
-                                <div class="response-header">
-                                    <strong>Réponse #${idx + 1}</strong>
-                                    <span class="response-date">${new Date(resp.date).toLocaleDateString()}</span>
-                                </div>
-                                <div class="compatibility-score">${resp.compatibility}% 💕</div>
-                                ${resp.answers.map((a, i) => `
-                                    <div class="answer-item">
-                                        <div class="answer-question">${quiz.questions[i].text}</div>
-                                        <div class="answer-text">${a}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-                    });
-                }
-                
-                div.innerHTML = `
-                    <h3 style="color: #667eea; margin-bottom: 10px;">Questionnaire pour ${quiz.creator}</h3>
-                    <p style="color: #666; font-size: 0.9em;">Créé le ${new Date(quiz.createdAt).toLocaleDateString()} • ${quiz.responses.length} réponse(s)</p>
-                    ${responsesHtml}
-                `;
-                
-                container.appendChild(div);
-            });
-            
-            document.getElementById('totalResponses').textContent = totalResponses;
-            document.getElementById('avgCompatibility').textContent = 
-                totalResponses > 0 ? Math.round(totalCompatibility / totalResponses) + '%' : '-%';
+                // Afficher la page de réponse
+                showAnswerPage();
+            } catch (e) {
+                console.error(e);
+                showPage('notfound');
+            }
         }
 
         // Page de réponse
-        function loadAnswerPage(quizId) {
-            currentQuiz = questionnaires.find(q => q.id === quizId);
-            if (!currentQuiz) return false;
+        function showAnswerPage() {
+            showPage('answer');
             
-            hideAll();
-            document.getElementById('answerPage').classList.remove('hidden');
-            
-            const header = document.getElementById('answerHeader');
-            header.innerHTML = `
-                <h2 style="color: #667eea; margin-bottom: 10px;">💌 Questionnaire de ${currentQuiz.creator}</h2>
-                ${currentQuiz.message ? `<p style="color: #666; margin-bottom: 20px; font-style: italic;">"${currentQuiz.message}"</p>` : ''}
+            // Header personnalisé
+            const intro = document.getElementById('answer-intro');
+            intro.innerHTML = `
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 3em; margin-bottom: 15px;">💌</div>
+                    <h2 style="color: #667eea; margin-bottom: 10px;">Questionnaire de ${currentQuiz.creator}</h2>
+                    ${currentQuiz.message ? `<p style="color: #666; font-style: italic; max-width: 500px; margin: 0 auto;">"${currentQuiz.message}"</p>` : ''}
+                </div>
             `;
             
             currentQuestionIndex = 0;
-            answers = {};
-            showCurrentQuestion();
-            
-            return true;
+            answers = new Array(currentQuiz.questions.length).fill(null);
+            showQuestion(0);
         }
 
-        function showCurrentQuestion() {
-            const container = document.getElementById('answerForm');
-            const question = currentQuiz.questions[currentQuestionIndex];
+        function showQuestion(index) {
+            const question = currentQuiz.questions[index];
+            const container = document.getElementById('question-container');
             
-            const progress = ((currentQuestionIndex) / currentQuiz.questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
+            // Mise à jour de la barre de progression
+            const progress = ((index) / currentQuiz.questions.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Question ${index + 1} sur ${currentQuiz.questions.length}`;
             
-            let inputHtml = '';
+            let html = `
+                <div class="question-display">
+                    <div class="question-number">Question ${index + 1}</div>
+                    <div class="question-text">${question.text}</div>
+            `;
             
             if (question.type === 'text') {
-                inputHtml = `<textarea id="answerInput" placeholder="Ton message..." style="width: 100%; min-height: 150px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1.1em;"></textarea>`;
+                html += `
+                    <textarea class="answer-input" id="answer-input" placeholder="Écris ta réponse ici...">${answers[index] || ''}</textarea>
+                `;
             } else if (question.type === 'choice') {
-                inputHtml = `<div style="display: flex; flex-direction: column; gap: 10px;">`;
-                question.options.forEach((opt, idx) => {
-                    inputHtml += `
-                        <label style="padding: 15px; background: #f0f0f0; border-radius: 10px; cursor: pointer; transition: all 0.3s;">
-                            <input type="radio" name="choice" value="${opt}" style="margin-right: 10px;">
-                            ${opt}
-                        </label>
+                html += `<div class="choices-container">`;
+                question.options.forEach((opt, i) => {
+                    const selected = answers[index] === opt ? 'selected' : '';
+                    html += `
+                        <div class="choice-option ${selected}" onclick="selectChoice('${opt.replace(/'/g, "\\'")}')">
+                            <div class="choice-radio"></div>
+                            <span>${opt}</span>
+                        </div>
                     `;
                 });
-                inputHtml += `</div>`;
+                html += `</div>`;
             } else if (question.type === 'scale') {
-                inputHtml = `<div style="text-align: center; padding: 20px;">`;
+                html += `<div class="scale-container">`;
                 for (let i = 1; i <= 10; i++) {
-                    inputHtml += `<span class="emoji-reaction" onclick="selectScale(${i})" data-value="${i}">${i}</span>`;
+                    const selected = answers[index] == i ? 'selected' : '';
+                    const emoji = i <= 3 ? '😕' : i <= 6 ? '🙂' : i <= 8 ? '😊' : '😍';
+                    html += `
+                        <button class="scale-btn ${selected}" onclick="selectScale(${i})" title="${emoji}">
+                            ${i}
+                        </button>
+                    `;
                 }
-                inputHtml += `<div id="scaleLabel" style="margin-top: 15px; color: #667eea; font-weight: bold;"></div></div>`;
+                html += `</div>`;
             }
             
-            container.innerHTML = `
-                <div style="margin-bottom: 20px;">
-                    <span style="color: #999;">Question ${currentQuestionIndex + 1}/${currentQuiz.questions.length}</span>
-                    <h3 style="margin-top: 10px; color: #333; font-size: 1.3em;">${question.text}</h3>
-                </div>
-                ${inputHtml}
-            `;
+            html += `</div>`;
+            container.innerHTML = html;
+            
+            // Mettre à jour le bouton
+            const btn = document.getElementById('next-btn');
+            if (index === currentQuiz.questions.length - 1) {
+                btn.innerHTML = 'Envoyer 💝';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-success');
+            } else {
+                btn.innerHTML = 'Suivant →';
+                btn.classList.add('btn-primary');
+                btn.classList.remove('btn-success');
+            }
+        }
+
+        function selectChoice(value) {
+            answers[currentQuestionIndex] = value;
+            document.querySelectorAll('.choice-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
         }
 
         function selectScale(value) {
-            document.querySelectorAll('.emoji-reaction').forEach(el => el.classList.remove('selected'));
-            document.querySelector(`.emoji-reaction[data-value="${value}"]`).classList.add('selected');
-            
-            const labels = ['Pas du tout', 'Un peu', 'Moyennement', 'Beaucoup', 'Passionnément'];
-            const label = labels[Math.floor((value - 1) / 2)] || 'Beaucoup';
-            document.getElementById('scaleLabel').textContent = label;
+            answers[currentQuestionIndex] = value;
+            document.querySelectorAll('.scale-btn').forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
         }
 
-        function submitAnswers() {
+        function nextQuestion() {
+            // Récupérer la réponse actuelle
             const question = currentQuiz.questions[currentQuestionIndex];
-            let answer = '';
             
             if (question.type === 'text') {
-                answer = document.getElementById('answerInput').value;
-            } else if (question.type === 'choice') {
-                const selected = document.querySelector('input[name="choice"]:checked');
-                if (selected) answer = selected.value;
-            } else if (question.type === 'scale') {
-                const selected = document.querySelector('.emoji-reaction.selected');
-                if (selected) answer = selected.dataset.value + '/10';
+                const val = document.getElementById('answer-input').value.trim();
+                if (!val) {
+                    alert('Écris quelque chose pour continuer 😉');
+                    return;
+                }
+                answers[currentQuestionIndex] = val;
             }
             
-            if (!answer && question.type !== 'text') {
-                alert('Réponds à la question pour continuer 😉');
+            if (answers[currentQuestionIndex] === null) {
+                alert('Choisis une réponse pour continuer 😉');
                 return;
             }
             
-            answers[currentQuestionIndex] = answer;
-            
             if (currentQuestionIndex < currentQuiz.questions.length - 1) {
                 currentQuestionIndex++;
-                showCurrentQuestion();
+                showQuestion(currentQuestionIndex);
             } else {
-                finishQuiz();
+                submitAnswers();
             }
         }
 
-        function finishQuiz() {
-            // Calculer une "compatibilité" aléatoire mais réaliste (60-95%)
-            const compatibility = Math.floor(Math.random() * 35) + 60;
+        function submitAnswers() {
+            // Calculer un score de compatibilité (aléatoire mais réaliste)
+            const compatibility = Math.floor(Math.random() * 30) + 70; // 70-100%
             
+            // Créer l'objet réponse
             const response = {
                 date: new Date().toISOString(),
-                answers: Object.values(answers),
-                compatibility: compatibility
+                answers: answers,
+                compatibility: compatibility,
+                quizId: currentQuiz.id
             };
             
-            currentQuiz.responses.push(response);
-            localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
+            // Sauvegarder la réponse (simulation - dans la vraie vie, on enverrait à un serveur)
+            saveResponse(currentQuiz.id, response);
             
-            hideAll();
-            document.getElementById('confirmationPage').classList.remove('hidden');
+            // Afficher confirmation
+            document.getElementById('confirm-creator').textContent = currentQuiz.creator;
+            showPage('confirm');
         }
 
-        // Initialisation
-        window.onload = function() {
-            createHearts();
+        // Historique local
+        function saveToHistory(quiz) {
+            let history = JSON.parse(localStorage.getItem('coeuracoeur_history') || '[]');
             
-            // Vérifier si on est sur un lien de réponse
-            const params = new URLSearchParams(window.location.search);
-            const quizId = params.get('quiz');
-            
-            if (quizId) {
-                if (!loadAnswerPage(quizId)) {
-                    alert('Ce questionnaire n\'existe pas ou a été supprimé 😢');
-                    showHome();
-                }
+            // Vérifier si existe déjà
+            const existing = history.findIndex(q => q.id === quiz.id);
+            if (existing >= 0) {
+                history[existing] = quiz;
+            } else {
+                history.push(quiz);
             }
-        };
+            
+            localStorage.setItem('coeuracoeur_history', JSON.stringify(history));
+        }
+
+        function saveResponse(quizId, response) {
+            let history = JSON.parse(localStorage.getItem('coeuracoeur_history') || '[]');
+            const quiz = history.find(q => q.id === quizId);
+            
+            if (quiz) {
+                if (!quiz.responses) quiz.responses = [];
+                quiz.responses.push(response);
+                localStorage.setItem('coeuracoeur_history', JSON.stringify(history));
+            }
+            
+            // Aussi sauvegarder dans les réponses reçues (pour le créateur sur cet appareil)
+            let received = JSON.parse(localStorage.getItem('coeuracoeur_received') || '[]');
+            received.push({
+                quizId: quizId,
+                ...response,
+                quizCreator: currentQuiz.creator,
+                quizQuestions: currentQuiz.questions
+            });
+            localStorage.setItem('coeuracoeur_received', JSON.stringify(received));
+        }
+
+        // Dashboard
+        function loadDashboard() {
+            const container = document.getElementById('dashboard-content');
+            const history = JSON.parse(localStorage.getItem('coeuracoeur_history') || '[]');
+            const received = JSON.parse(localStorage.getItem('coeuracoeur_received') || '[]');
+            
+            if (history.length === 0 && received.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h3 style="color: #666; margin-bottom: 10px;">Pas encore de questionnaires</h3>
+                        <p style="color: #999;">Crée ton premier questionnaire pour commencer !</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            // Questionnaires créés
+            if (history.length > 0) {
+                html += `<h3 style="color: #667eea; margin: 20px 0 15px; font-size: 1.2em;">📤 Créés par toi</h3>`;
+                html += `<div class="quiz-list">`;
+                
+                history.slice().reverse().forEach(quiz => {
+                    const responseCount = quiz.responses ? quiz.responses.length : 0;
+                    
+                    html += `
+                        <div class="quiz-card">
+                            <div class="quiz-header">
+                                <div class="quiz-title">Questionnaire pour ${quiz.creator}</div>
+                                <div class="quiz-date">${new Date(quiz.createdAt).toLocaleDateString()}</div>
+                            </div>
+                            <div style="color: #666; font-size: 0.95em; margin-bottom: 10px;">
+                                ${quiz.questions.length} question(s)
+                            </div>
+                            <div class="quiz-stats">
+                                <div class="stat">
+                                    <span class="stat-icon">💌</span>
+                                    <span>${responseCount} réponse(s)</span>
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (responseCount > 0) {
+                        html += `<div class="responses-preview">`;
+                        quiz.responses.forEach((resp, idx) => {
+                            html += `
+                                <div class="response-tag">
+                                    <span>💕</span>
+                                    <span>${resp.compatibility}% compatibilité</span>
+                                </div>
+                            `;
+                        });
+                        html += `</div>`;
+                    }
+                    
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            }
+            
+            // Réponses reçues (si on a répondu à des questionnaires)
+            if (received.length > 0) {
+                html += `<h3 style="color: #667eea; margin: 30px 0 15px; font-size: 1.2em;">📥 Réponses envoyées</h3>`;
+                html += `<div class="quiz-list">`;
+                
+                received.slice().reverse().forEach(resp => {
+                    html += `
+                        <div class="quiz-card" style="opacity: 0.8;">
+                            <div class="quiz-header">
+                                <div class="quiz-title">Réponse à ${resp.quizCreator}</div>
+                                <div class="quiz-date">${new Date(resp.date).toLocaleDateString()}</div>
+                            </div>
+                            <div class="stat" style="margin-top: 10px;">
+                                <span class="stat-icon">💝</span>
+                                <span>Score: ${resp.compatibility}%</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            }
+            
+            container.innerHTML = html;
+        }
     </script>
 </body>
 </html>
